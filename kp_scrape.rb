@@ -1,17 +1,6 @@
-require 'watir'
-require 'watir-webdriver'
-require 'nokogiri'
-require 'open-uri'
-require 'whenever'
+require 'config/setup'
 
-## Prevent FireFox from confirming download of CSV with dialog
-downloads_directory = "#{Dir.pwd}/data_downloads"
-profile = Selenium::WebDriver::Firefox::Profile.new
-profile['browser.download.folderList'] = 2 # custom location
-profile['browser.download.dir'] = downloads_directory
-profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv"
-
-@browser = Watir::Browser.new :firefox, profile: profile
+@browser = Watir::Browser.new :firefox, profile: @profile
 @browser.goto 'http://kenpom.com/'
 
 if @browser.div(id: "logged-in").present?
